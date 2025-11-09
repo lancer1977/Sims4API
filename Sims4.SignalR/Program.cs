@@ -1,39 +1,30 @@
-using Microsoft.AspNetCore.SignalR.Client;
+using PolyhydraGames.Sims4.Bridge;
+using AppDomain = System.AppDomain;
+using Directory = System.IO.Directory;
 
-string hubUrl = "https://channelcheevos.com/hubs/stream";
-string streamerUserId = "<your-guid>"; // e.g., from config
-string jwt = await GetDeviceTokenAsync(); // Client credentials or device code flow
+Console.WriteLine("Hello, World!");
+// See https://aka.ms/new-console-template for more information
 
-var conn = new HubConnectionBuilder()
-    .WithUrl($"{hubUrl}?streamerId={streamerUserId}", options =>
+
+Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
+
+
+
+var host = Host.CreateDefaultBuilder(args)
+    .ConfigureServices((hostContext, services) =>
     {
-        options.AccessTokenProvider = () => Task.FromResult(jwt)!;
-    })
-    .WithAutomaticReconnect()
-    .Build();
+        services.AddConfig();
+ 
 
-// Optional: receive acks or commands from server
-conn.On<string>("requestHeartbeat", async (_) =>
-{
-    await conn.InvokeAsync("SubmitEvent", new StreamEvent(
-        streamerUserId, "Heartbeat", DateTimeOffset.UtcNow,
-        new { status = "ok" }, Guid.NewGuid().ToString()));
-});
+    }).Build();
 
-await conn.StartAsync();
 
-// Helper: send an event
-async Task SendEventAsync(string type, object payload, string? id = null)
-{
-    var evt = new StreamEvent(
-        streamerUserId, type, DateTimeOffset.UtcNow, payload, id ?? Guid.NewGuid().ToString());
 
-    // Basic retry with local buffer
-    for (int i = 0; i < 5; i++)
-    {
-        try { await conn.InvokeAsync("SubmitEvent", evt); return; }
-        catch { await Task.Delay(500 * (i + 1)); }
-    }
-    // Fallback: write to a local queue file to flush later
-    await File.AppendAllTextAsync("event-buffer.jsonl", System.Text.Json.JsonSerializer.Serialize(evt) + "\n");
-}
+var scope = host.Services;
+//var listener = scope.GetRequiredService<CompanionPortListener>();
+//await listener.Start();
+var web = scope.GetRequiredService<Connection>();
+await web!.Start();
+
+
+await host.RunAsync();
