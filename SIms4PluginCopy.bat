@@ -1,0 +1,1 @@
+copy MySims4WebhookMod.ts4script 
