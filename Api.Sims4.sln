@@ -1,0 +1,30 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PolyhydraGames.Sims4.Bridge", "Sims4.SignalR\PolyhydraGames.Sims4.Bridge.csproj", "{4BC9303F-260E-EB9B-2E18-A38359F0D3FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PolyhydraGames.Sims4.Core", "Sims4.Core\PolyhydraGames.Sims4.Core.csproj", "{E913A088-3EA8-7CBA-1287-4C3B2D2A2011}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4BC9303F-260E-EB9B-2E18-A38359F0D3FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BC9303F-260E-EB9B-2E18-A38359F0D3FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BC9303F-260E-EB9B-2E18-A38359F0D3FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BC9303F-260E-EB9B-2E18-A38359F0D3FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E913A088-3EA8-7CBA-1287-4C3B2D2A2011}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E913A088-3EA8-7CBA-1287-4C3B2D2A2011}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E913A088-3EA8-7CBA-1287-4C3B2D2A2011}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E913A088-3EA8-7CBA-1287-4C3B2D2A2011}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {541F419C-0F3A-4152-9496-9E9A4157407E}
+	EndGlobalSection
+EndGlobal
