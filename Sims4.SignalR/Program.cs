@@ -14,7 +14,8 @@ var host = Host.CreateDefaultBuilder(args)
     .ConfigureServices((hostContext, services) =>
     {
         services.AddConfig();
- 
+        services.AddSingleton<Connection>();
+
 
     }).Build();
 
@@ -24,7 +25,7 @@ var scope = host.Services;
 //var listener = scope.GetRequiredService<CompanionPortListener>();
 //await listener.Start();
 var web = scope.GetRequiredService<Connection>();
-await web!.Start();
+await web!.StartAsync();
 
 
 await host.RunAsync();

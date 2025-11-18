@@ -5,24 +5,27 @@ namespace PolyhydraGames.Sims4.Bridge;
 
 public class Connection
 {
+    private HubConnection conn;
     public Connection(IConfiguration config )
     {
         WebKey = config["WebKey"];
+
+        string hubUrl = config["HubUrl"];
+        conn = new HubConnectionBuilder()
+            .WithUrl($"{hubUrl}?streamerId={WebKey}")
+            .WithAutomaticReconnect()
+            .Build();
+
     }
-     
+
     public string? WebKey { get; }
 
     public async Task StartAsync()
     {
 
-        string hubUrl = "https://channelcheevos.com/hubs/stream";
         //string streamerUserId = "<your-guid>"; // e.g., from config
         //string jwt = await GetDeviceTokenAsync(); // Client credentials or device code flow
 
-        var conn = new HubConnectionBuilder()
-            .WithUrl($"{hubUrl}?streamerId={WebKey}")
-            .WithAutomaticReconnect()
-            .Build();
 
         // Optional: receive acks or commands from server
         conn.On<string>("requestHeartbeat", async (_) =>
