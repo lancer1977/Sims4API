@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Sims4.Core\PolyhydraGames.Sims4.Core.csproj" />
+    <ProjectReference Include="..\..\Sims4.SignalR\PolyhydraGames.Sims4.Bridge.csproj" />
   </ItemGroup>
 
 </Project>
