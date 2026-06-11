@@ -1,8 +1,10 @@
-# Api.Sims4
+# Sims4 Support
 
-Contracts and bridge runtime for the Polyhydra Games Sims 4 integration.
+Contracts and bridge runtime for the Polyhydra Games Sims 4 support home.
 
-This repository is the shared boundary for the Sims workflow. It is **not** the base mod itself; instead it defines the wire contracts and the small SignalR bridge that the mod can use to report state back to the hub.
+Goal shape: canonical support home for Sims contracts and bridge runtime, while the base mod remains separate from the support boundary.
+
+This repository is the shared boundary for the Sims workflow and the canonical Sims4 support home. It is **not** the base mod itself; instead it defines the wire contracts and the small SignalR bridge that the mod can use to report state back to the hub.
 
 ## Tags
 
@@ -85,7 +87,7 @@ The canonical influence-event contract lives in `docs/contracts/influence-events
 
 ## Work tracking
 
-- [Live Kanban tracker](00_agile/planning/Api.Sims4-KANBAN.md) — mirrors the current Sims integration cards and their parked status.
+- [Live Kanban tracker](docs/roadmaps/planning/Sims4-Support-KANBAN.md) — mirrors the current Sims integration cards and their parked status.
 
 ## Notes
 

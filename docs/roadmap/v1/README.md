@@ -1,4 +1,4 @@
-# Api.Sims4 Roadmap (v1)
+# Sims4 Support Roadmap (v1)
 
 ## Vision
 Make the Sims 4 integration a clean, testable contract layer with a small bridge runtime, so the game-side mod can expose stable capabilities without the rest of the stack guessing at wire shapes.

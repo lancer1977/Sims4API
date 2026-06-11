@@ -1,6 +1,6 @@
-# Api.Sims4
+# Sims4 Support
 
-API integration for Polyhydra Games.
+API integration for the Sims 4 support home.
 
 ## Contents
 

@@ -1,7 +1,7 @@
 # code_health.md
 
 - repo: Api.Sims4
-- path: /home/lancer1977/code/Api.Sims4
+- path: /home/lancer1977/code/Sims4-Support
 - utc_timestamp: 2026-06-02T11:02:55Z
 - scan_scope: repo-root README/docs/roadmap, git status, current worktree, and contract/test surface
 - last_pass_timestamp: n/a (first recorded pass)
