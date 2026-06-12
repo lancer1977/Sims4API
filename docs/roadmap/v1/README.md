@@ -1,5 +1,16 @@
 # Sims4 Support Roadmap (v1)
 
+## Shared phase model
+
+This repo uses `V1` as the base contract/bridge baseline. When comparing across projects, use the common `PolyhydraGames.GameServerInterop` ladder:
+
+- `V1` - admin control plane baseline
+- `V2` - GM / moderation mode
+- `V3` - cc-sidecar baseline
+- `V4` - ChannelCheevos integration
+
+The Sims roadmap below is the V1 foundation for the shared contract and bridge runtime.
+
 ## Vision
 Make the Sims 4 integration a clean, testable contract layer with a small bridge runtime, so the game-side mod can expose stable capabilities without the rest of the stack guessing at wire shapes.
 
