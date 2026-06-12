@@ -1,15 +1,17 @@
-# Sims4 Support
+# Sims4 Support Docs
 
-API integration for the Sims 4 support home.
+Canonical docs entrypoint for the Sims 4 support home.
+
+This folder is the navigation layer for the Sims contracts, bridge runtime, and roadmap/decision breadcrumbs.
 
 ## Contents
 
-- [Index](docs/)
+- [Repository README](../README.md)
 
 ## Roadmap
 
-- [v1](docs/roadmap/v1/README.md)
+- [v1](roadmap/v1/README.md)
 
 ## Decisions
 
-- [Template](docs/decisions/0000-template.md)
+- [Template](decisions/0000-template.md)

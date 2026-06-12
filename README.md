@@ -89,9 +89,14 @@ The canonical influence-event contract lives in `docs/contracts/influence-events
 
 - [Live Kanban tracker](docs/roadmaps/planning/Sims4-Support-KANBAN.md) — mirrors the current Sims integration cards and their parked status.
 
+## Documentation
+
+- [Docs README](./docs/README.md)
+
 ## Notes
 
 - Configuration is loaded from `appsettings.json` and environment variables prefixed with `SIMS4_`.
 - The repo currently defines the contracts and bridge runtime; the actual game-side mod handlers can evolve against these contracts without changing the wire shape.
 - JSON wire-format details live in `docs/contracts/json-wire-format.md`.
 - Command status journal details live in `docs/contracts/dispatch-status.md`.
+- Keep any future orchestration/UI work outside this repo unless it is part of the bridge/runtime boundary.
