@@ -81,7 +81,8 @@ Sample local config and env-var setup lives in `docs/operations/local-config.md`
 
 ## Roadmap
 
-See `docs/roadmap/v1/README.md` for the current phased backlog and quality closeout checklist.
+See `docs/roadmaps/README.md` for the current phased backlog and planning index.
+The v1 backlog lives in `docs/roadmap/v1/README.md`.
 The stream-influence brainstorm and card pack live in `docs/roadmap/v1/stream-influence-events.md`.
 The canonical influence-event contract lives in `docs/contracts/influence-events.md`.
 
@@ -104,6 +105,8 @@ The canonical influence-event contract lives in `docs/contracts/influence-events
 ## Docs map
 
 - [Docs README](./docs/README.md)
+- [Feature index](./docs/features/README.md)
+- [Roadmap index](./docs/roadmaps/README.md)
 - [Influence-event contract](./docs/contracts/influence-events.md)
 - [JSON wire format](./docs/contracts/json-wire-format.md)
 - [Dispatch status](./docs/contracts/dispatch-status.md)
