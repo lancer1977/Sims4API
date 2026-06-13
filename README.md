@@ -81,7 +81,8 @@ Sample local config and env-var setup lives in `docs/operations/local-config.md`
 
 ## Roadmap
 
-See `docs/roadmap/v1/README.md` for the current phased backlog and quality closeout checklist.
+See `docs/roadmaps/README.md` for the current phased backlog and planning index.
+The v1 backlog lives in `docs/roadmap/v1/README.md`.
 The stream-influence brainstorm and card pack live in `docs/roadmap/v1/stream-influence-events.md`.
 The canonical influence-event contract lives in `docs/contracts/influence-events.md`.
 
@@ -89,9 +90,32 @@ The canonical influence-event contract lives in `docs/contracts/influence-events
 
 - [Live Kanban tracker](docs/roadmaps/planning/Sims4-Support-KANBAN.md) — mirrors the current Sims integration cards and their parked status.
 
-## Documentation
+## V1 baseline
+
+- The contracts and SignalR bridge are the durable support boundary.
+- V1 covers the base mod reporting shape, command surface, and local buffering behavior.
+- Future orchestration stays outside this repo unless it is part of the bridge/runtime boundary.
+
+## Current shape
+
+- The contracts project is the durable boundary; the base mod can evolve against it without changing the wire shape.
+- The SignalR bridge carries the runtime event flow and local buffering behavior.
+- Contract, config, and dispatch notes live in `docs/contracts/` and `docs/operations/`.
+
+## Docs map
 
 - [Docs README](./docs/README.md)
+- [Feature index](./docs/features/README.md)
+- [Roadmap index](./docs/roadmaps/README.md)
+- [Influence-event contract](./docs/contracts/influence-events.md)
+- [JSON wire format](./docs/contracts/json-wire-format.md)
+- [Dispatch status](./docs/contracts/dispatch-status.md)
+- [Local config](./docs/operations/local-config.md)
+- [Work tracking](./docs/roadmaps/planning/Sims4-Support-KANBAN.md)
+
+## Shared phase model
+
+- [GameServerInterop version ladder](../Api.GameServerInterop/README.md#version-ladder)
 
 ## Notes
 

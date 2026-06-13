@@ -7,10 +7,13 @@ This folder is the navigation layer for the Sims contracts, bridge runtime, and 
 ## Contents
 
 - [Repository README](../README.md)
+- [Feature Index](./features/README.md)
+- [Roadmap Index](./roadmaps/README.md)
 
 ## Roadmap
 
 - [v1](roadmap/v1/README.md)
+- [Stream influence events](roadmap/v1/stream-influence-events.md)
 
 ## Decisions
 
