@@ -2,24 +2,27 @@
 
 - repo: Api.Sims4
 - path: /home/lancer1977/code/Sims4-Support
-- utc_timestamp: 2026-06-02T11:02:55Z
+- utc_timestamp: 2026-06-14T02:30:20Z
 - scan_scope: repo-root README/docs/roadmap, git status, current worktree, and contract/test surface
-- last_pass_timestamp: n/a (first recorded pass)
+- last_pass_timestamp: 2026-06-14T02:30:20Z
 
 ## Validation
 
 - `dotnet test Tests/PolyhydraGames.Sims4.Tests/PolyhydraGames.Sims4.Tests.csproj --no-restore --nologo -v minimal`
 - Result: Passed 73 / 73 tests, 0 skipped, 0 failed.
+- Live validation against the deployed support environment has not been done yet.
 
 ## Findings
 
 ### Contract / runtime hardening — active and healthy
 - The repo is in the middle of a contract/runtime expansion, but the current public docs describe the surface clearly.
-- `docs/roadmap/v1/README.md` already records the next open queue-dispatcher / status-persistence follow-up cards, which is the right place for remaining work.
+- `docs/roadmap/v1/README.md` already records the completed queue-dispatcher / status-persistence slice, which is the right place to keep any future follow-up work.
 - The current test run passed cleanly, so the new bridge/contract pieces are not showing an obvious regression signal.
+- That is local-only proof; do not treat it as live validation.
 
 ### Docs / roadmap alignment — medium
 - The README and roadmap are aligned around the contract boundary, bridge runtime, and influence-event work.
+- They now need to be read as implemented-and-tested locally, not live-validated.
 - Remaining backlog items are already named in the roadmap; keep them there instead of creating new parallel notes.
 
 ### Dependency / ops risk — low
@@ -34,7 +37,7 @@
 
 ## Recommended next slice
 
-1. Finish the queue-dispatcher / status-persistence follow-up cards already named in the roadmap.
+1. Secure a live validation path against the deployed support environment and capture the result.
 2. Keep the command/event contract docs synchronized with any further wire-shape changes.
 3. Re-run the targeted test project after the next contract edit.
 

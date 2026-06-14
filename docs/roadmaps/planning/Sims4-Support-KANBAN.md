@@ -2,7 +2,11 @@
 
 Board: `default`
 
-This tracker mirrors the live Hermes Kanban cards for the Sims integration workstream. The completed cards are recorded here for traceability. The stream influence catalog/safety gate slice and the follow-up influence slices are now implemented in code and documented separately.
+This tracker mirrors the live Hermes Kanban cards for the Sims integration workstream. The completed cards are recorded here for traceability. The stream influence catalog/safety gate slice and the follow-up influence slices are implemented in code and documented separately.
+
+Those slices are backed by repo-local tests, but they have not been live-validated against the deployed support environment yet.
+
+The current work here should stay aligned to the shared `Api.GameServerInterop` infra ladder: `V0` for the bootable resident game-sidecar and readback path, `V1` for the support-home boundary pass, then the shared `V2`-`V5` maturity steps.
 
 | Done | Card ID | Title | Description | URL | Date added | Date modified | Status | Source |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -25,25 +29,19 @@ These were surfaced from the current thread and are kept here for traceability.
 | done | `Sims4 Support: implement guest summon influence path` | Add the guest / surprise visitor summon path with variants for friend, rival, neighbor, or random guest. | `docs/roadmap/v1/stream-influence-events.md` |
 | done | `Sims4 Support: add stream influence smoke coverage and docs closeout` | Prove the new influence shapes are wired well enough for repo-level validation and roadmap closeout. | `docs/roadmap/v1/stream-influence-events.md` |
 
-## Remaining phase 2 cards
+## Completed phase 2 cards
 
-These are the live open cards for the remaining dispatcher/status slice in the current Sims workstream.
+These cards covered the dispatcher/status slice in the current Sims workstream and are now closed out in code and tests.
 
 | Status | Card ID | Title | Description | Source |
 | --- | --- | --- | --- | --- |
-| todo | `t_9ce8fcd2` | Sims4 Support: implement mod-side command dispatcher and status persistence | Root Phase 2 card for queue consumption, failure recording, and startup handshake coordination. | `docs/roadmap/v1/README.md` Phase 2 |
-| blocked | `t_f7acf1c6` | Add persistence schema for command processing status | Extend the command queue store with processing/failed metadata and troubleshooting payloads. | `docs/roadmap/v1/README.md` Phase 2 |
-| todo | `t_bdacef85` | Implement exactly-once moddata command dispatcher | Claim queue entries atomically and dispatch handlers once per command. | `docs/roadmap/v1/README.md` Phase 2 |
-| todo | `t_36f03fe1` | Add tests for idempotent dispatch and startup snapshot | Cover exactly-once queue processing, failure recording, and startup capability emission. | `docs/roadmap/v1/README.md` Phase 2 |
-
-## Suggested execution order
-
-1. `t_f7acf1c6` — persistence schema for command processing status
-2. `t_bdacef85` — exactly-once moddata dispatcher
-3. `t_36f03fe1` — idempotent dispatch and startup snapshot tests
-4. `t_9ce8fcd2` — root phase 2 card closeout after children land
+| [x] | `t_9ce8fcd2` | Sims4 Support: implement mod-side command dispatcher and status persistence | Root Phase 2 card for queue consumption, failure recording, and startup handshake coordination. | `docs/roadmap/v1/README.md` Phase 2 |
+| [x] | `t_f7acf1c6` | Add persistence schema for command processing status | Extend the command queue store with processing/failed metadata and troubleshooting payloads. | `docs/roadmap/v1/README.md` Phase 2 |
+| [x] | `t_bdacef85` | Implement exactly-once moddata command dispatcher | Claim queue entries atomically and dispatch handlers once per command. | `docs/roadmap/v1/README.md` Phase 2 |
+| [x] | `t_36f03fe1` | Add tests for idempotent dispatch and startup snapshot | Cover exactly-once queue processing, failure recording, and startup capability emission. | `docs/roadmap/v1/README.md` Phase 2 |
 
 ## Notes
 - The tracker mirrors the current finished Sims integration slices in this repo.
-- The remaining follow-up is the actual game-side mod/runtime beyond this shared-contract and queue-reader layer.
+- Do not treat local test success as live validation.
+- Any future game-side mod/runtime work belongs beyond this shared-contract and queue-reader layer.
 - Update this tracker in the same pass whenever any completion status changes.

@@ -1,10 +1,45 @@
 # Sims4 Support
 
-Contracts and bridge runtime for the Polyhydra Games Sims 4 support home.
+Contracts and game-sidecar runtime for the Polyhydra Games Sims 4 support home.
 
-Goal shape: canonical support home for Sims contracts and bridge runtime, while the base mod remains separate from the support boundary.
+Goal shape: canonical support home for Sims contracts and bridge runtime, while the base mod remains separate from the support boundary. `V0` is the deployable/analyzable floor and `V1` is the canonical support-home and repo-boundary pass.
 
-This repository is the shared boundary for the Sims workflow and the canonical Sims4 support home. It is **not** the base mod itself; instead it defines the wire contracts and the small SignalR bridge that the mod can use to report state back to the hub.
+This repository is the shared boundary for the Sims workflow and the canonical Sims4 support home. It is **not** the base mod itself; instead it defines the wire contracts and the small SignalR game-sidecar that runs resident in the game context and reports state back to the hub.
+
+For the shared V-layer wording and checklist shape, use the canonical template in `../Api.GameServerInterop/docs/roadmap/v-layer-goals-template.md`.
+
+## Per-Repo Fill-In
+
+- repo name: `Sims4-Support`
+- runtime sibling: none; the base mod stays separate from this support home
+- support-home boundary: support home lives here; keep the base mod and gameplay ownership out of the support boundary
+- local build command: `dotnet build Api.Sims4.sln`
+- local test/smoke command: `dotnet test Tests/PolyhydraGames.Sims4.Tests/PolyhydraGames.Sims4.Tests.csproj --no-restore --nologo -v minimal`
+- caveats: shared contracts stay in `Api.GameServerInterop`; keep bridge/runtime work explicit and do not fold the mod package into the support home
+
+## Goal Path
+
+This repo follows the shared infra ladder defined in `Api.GameServerInterop`.
+
+- `V0` is the deployable/analyzable baseline: the resident game-sidecar can boot locally, a readback path can inspect state, the deployment lane is explicit, and the smoke tests prove the support shape starts locally.
+- The existing Sims contract and bridge work stays in this repo; the shared telemetry, health, capability, and adapter seam stays in `Api.GameServerInterop`.
+- The next layers still follow the shared ladder: `V1` canonical support home, `V2` read-only support proof, `V3` capability/control truth, `V4` public/operator projection, and `V5` approval-gated gameplay proof.
+
+
+## V2 Read-Only Support Proof
+
+- 252 deployment status: not observed on 192.168.0.252 as of 2026-06-13; see [252 Deployment Status](../Api.GameServerInterop/docs/roadmap/252-deployment-status.md)
+- goal: prove safe readback, inspection, or telemetry behavior without gameplay mutation
+- ownership: health, version, snapshot, log-tail, and read-only projections stay in the support lane
+- validation status: the repo-local test suite passes, but live validation against the deployed support environment has not been done yet
+- exit criteria: the repo exposes a stable read-only model, unsafe actions are absent or explicitly gated, and tests plus live validation cover the read-only contract shape
+- avoid: mutating game state in the read-only layer or depending on unproven write access
+
+## Validation
+
+- repo-local tests pass: `dotnet test Tests/PolyhydraGames.Sims4.Tests/PolyhydraGames.Sims4.Tests.csproj --no-restore --nologo -v minimal`
+- live validation: pending against the deployed support environment
+- docs should distinguish implemented behavior from behavior that has been proven live
 
 ## Tags
 
@@ -25,8 +60,8 @@ This repository is the shared boundary for the Sims workflow and the canonical S
   - `SimsInfluenceRequest` plus specialized guest/fire/robber influence payloads and safety-gate helpers
   - `SimsModCapabilities` for base-mod exposure
   - canonical action/event name catalogs
-- **`Sims4.SignalR`** — the runtime bridge
-  - connects the mod runtime to the SignalR hub
+- **`Sims4.SignalR`** — the resident game-sidecar
+  - connects the mod/runtime boundary to the SignalR hub
   - publishes events with retry + local buffer fallback
   - responds to heartbeat requests
 - **`Tests`** — contract tests for the shared models
@@ -58,7 +93,7 @@ The inventory-oriented actions and direct interaction/object actions are the cur
 
 ## Runtime shape
 
-1. The mod/bridge loads configuration.
+1. The resident game-sidecar loads configuration.
 2. The SignalR connection is established with the streamer/web key.
 3. Heartbeat requests can be answered immediately.
 4. Capability and inventory snapshots are published as structured `StreamEvent` payloads.
@@ -92,6 +127,7 @@ The canonical influence-event contract lives in `docs/contracts/influence-events
 ## Documentation
 
 - [Docs README](./docs/README.md)
+- [252 operator matrix](../gitops/docs/roadmaps/game-server-252-operator-matrix.md)
 
 ## Notes
 

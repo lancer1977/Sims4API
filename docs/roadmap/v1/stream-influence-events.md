@@ -6,6 +6,8 @@
 
 **Scope:** This is the game-side influence layer, not the transport plumbing. The existing shared contracts, queue reader, and bridge runtime stay the foundation.
 
+**Validation note:** the influence slices are documented and backed by repo-local tests, but live validation against the deployed support environment has not been done yet.
+
 ---
 
 ## Brainstorm: summon / influence ideas
@@ -124,7 +126,7 @@ Possible later extensions, if the core three land well:
 
 **Acceptance criteria:**
 - there is at least one smoke-style test or harness for influence dispatch shape
-- the roadmap reflects the completed/remaining influence slices
+- the roadmap reflects the completed influence slices and any future follow-up clearly
 - the tracker shows the new follow-up goals clearly
 - the repo notes point to the canonical influence-event doc
 
