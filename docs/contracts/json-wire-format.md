@@ -2,6 +2,7 @@
 
 This document captures the current contract shapes used by `Api.Sims4`.
 The serializer currently emits the CLR property names as written in the shared records.
+The authoritative V3 capability surface is `SimsModCapabilities` plus `SimsCapabilitySnapshot`; influence request and decision semantics live in `docs/contracts/influence-events.md`, which defines the safety surface, approval gating, and cooldown behavior.
 
 ## Common notes
 
@@ -218,7 +219,7 @@ Inventory state captured for stocktake or exposure reporting.
 
 ## `SimsModCapabilities`
 
-Capability handshake published by the mod on startup.
+Authoritative V3 capability handshake published by the mod on startup.
 
 || Property | Type | Required | Notes |
 || --- | --- | --- | --- |
@@ -231,7 +232,7 @@ Capability handshake published by the mod on startup.
 
 ## `SimsCapabilitySnapshot`
 
-Timestamped startup payload that wraps the capability surface before it is emitted to the hub.
+Timestamped startup payload that wraps the authoritative V3 capability surface before it is emitted to the hub.
 
 ||| Property | Type | Required | Notes |
 ||| --- | --- | --- | --- |

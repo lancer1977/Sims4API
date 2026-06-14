@@ -1,6 +1,7 @@
 # Api.Sims4 Influence Events
 
-This document defines the stream influence surface for audience-driven incidents.
+This document defines the `trigger_influence` safety surface for audience-driven incidents.
+It names the canonical influence kinds, the approval-gated kinds, and the cooldown behavior that govern the stream-facing control surface.
 
 ## Canonical influence kinds
 

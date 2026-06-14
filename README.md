@@ -24,6 +24,7 @@ This repo follows the shared infra ladder defined in `Api.GameServerInterop`.
 - `V0` is the deployable/analyzable baseline: the resident game-sidecar can boot locally, a readback path can inspect state, the deployment lane is explicit, and the smoke tests prove the support shape starts locally.
 - The existing Sims contract and bridge work stays in this repo; the shared telemetry, health, capability, and adapter seam stays in `Api.GameServerInterop`.
 - The next layers still follow the shared ladder: `V1` canonical support home, `V2` read-only support proof, `V3` capability/control truth, `V4` public/operator projection, and `V5` approval-gated gameplay proof.
+- `V3` is documented by the authoritative capability surface in `SimsModCapabilities` and `SimsCapabilitySnapshot`, plus the influence safety surface in `docs/contracts/influence-events.md`.
 
 
 ## V2 Read-Only Support Proof
@@ -58,7 +59,7 @@ This repo follows the shared infra ladder defined in `Api.GameServerInterop`.
   - `SimsTarget`, `SimsInventoryItem`, `SimsInventorySnapshot`
   - `SimsRunInteractionRequest`, `SimsSpawnObjectRequest`, `SimsWorldActionRecord`
   - `SimsInfluenceRequest` plus specialized guest/fire/robber influence payloads and safety-gate helpers
-  - `SimsModCapabilities` for base-mod exposure
+  - `SimsModCapabilities` and `SimsCapabilitySnapshot` for the authoritative V3 capability surface
   - canonical action/event name catalogs
 - **`Sims4.SignalR`** — the resident game-sidecar
   - connects the mod/runtime boundary to the SignalR hub
@@ -147,5 +148,6 @@ The canonical influence-event contract lives in `docs/contracts/influence-events
 - Configuration is loaded from `appsettings.json` and environment variables prefixed with `SIMS4_`.
 - The repo currently defines the contracts and bridge runtime; the actual game-side mod handlers can evolve against these contracts without changing the wire shape.
 - JSON wire-format details live in `docs/contracts/json-wire-format.md`.
+- Influence request and decision semantics live in `docs/contracts/influence-events.md`; that doc defines the safety surface, approval gating, and cooldown behavior.
 - Command status journal details live in `docs/contracts/dispatch-status.md`.
 - Keep any future orchestration/UI work outside this repo unless it is part of the bridge/runtime boundary.

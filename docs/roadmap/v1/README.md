@@ -1,73 +1,18 @@
 # Sims4 Support Roadmap (v1)
 
-## Shared ladder
+Policy: this file is a checklist mirror only; GitHub issues hold scope, implementation detail, and closure evidence.
 
-This repo follows the shared `Api.GameServerInterop` ladder. `V0` is the floor and `V1` is the canonical support-home boundary pass.
+## Mirror Checklist
 
-- `V0`: bootable resident game-sidecar, readback-capable helper path, deployment lane, and smoke tests for local proof.
-- `V1`: canonical support home and repo boundary.
-- `V2`: read-only support proof.
-- `V3`: capability and control truth.
-- `V4`: public/operator projection.
-- `V5`: approval-gated gameplay proof.
+- [x] `Phase 1` contract hardening. Source: completed GitHub issue chain.
+- [x] `Phase 2` game-side base mod exposure. Source: completed GitHub issue chain.
+- [x] `Phase 3` smoke and test system. Source: completed GitHub issue chain.
+- [x] `Phase 4` stream influence events. Source: completed GitHub issue chain.
+- [ ] `Phase 5` V3 capability and control truth. Docs prerequisite: `SimsModCapabilities` / `SimsCapabilitySnapshot` are the authoritative capability surface, and `docs/contracts/influence-events.md` defines the safety surface, approval, and cooldown semantics. Source: [#7](https://github.com/lancer1977/Sims4API/issues/7), [#8](https://github.com/lancer1977/Sims4API/issues/8), [#4](https://github.com/lancer1977/Sims4API/issues/4), [#5](https://github.com/lancer1977/Sims4API/issues/5), [#9](https://github.com/lancer1977/Sims4API/issues/9)
 
-## Vision
-Make the Sims 4 integration a clean, testable contract layer with a small bridge runtime, so the game-side mod can expose stable capabilities without the rest of the stack guessing at wire shapes.
+## Minimal Metadata
 
-## Current status
-- `V0` is treated as the infra baseline for this roadmap, and any follow-on work in this repo should stay aligned to that ladder.
-- Shared event contract exists (`StreamEvent`).
-- Canonical action names now include interaction/object actions (`run_interaction`, `spawn_object`) plus inventory-focused actions (`add_item`, `take_item`, `take_stock`).
-- Base-mod exposure contracts exist (`SimsModCapabilities`, `SimsInventorySnapshot`, `SimsInventoryItem`).
-- SignalR bridge publishes events with retry + local buffer fallback.
-- Contract serialization tests and JSON wire-format docs are in place and passing.
-- The queue dispatcher/status-persistence subtree is implemented and validated by tests.
-- The tracker has been updated to mark the phase-2 cards complete.
-- Live validation against the deployed support environment is still pending, so this roadmap should not imply live proof yet.
-
-## Phase backlog
-
-### Phase 1 — contract hardening
-- [x] Define the shared event envelope.
-- [x] Define the canonical action/event name catalogs.
-- [x] Add inventory and capability exposure models.
-- [x] Add bridge runtime options for config + buffering.
-- [x] Add explicit serialization round-trip tests for each contract shape.
-- [x] Document the final JSON schema for command files and event payloads.
-
-### Phase 2 — game-side base mod exposure
-- [x] Define the command dispatch status journal format and dispatcher foundation.
-- [x] Add the mod-side dispatcher that reads commands from the moddata queue.
-- [x] Implement `add_item` and `take_item` handlers.
-- [x] Implement `take_stock` inventory snapshot generation.
-- [x] Publish capability handshakes on startup.
-- [x] Persist processed/failed command status for troubleshooting.
-
-### Phase 3 — smoke + test system
-- [x] Add a tiny offline test harness for the command schema.
-- [x] Add round-trip tests for bridge buffering and command serialization.
-- [x] Add a repo-level smoke check that verifies the bridge can boot with sample config.
-- [x] Add docs for local secret/config setup.
-
-### Phase 4 — stream influence events
-- [x] Define the influence event catalog and safety gates.
-- [x] Implement the fire incident influence path.
-- [x] Implement the robber / break-in influence path.
-- [x] Implement the guest / surprise visitor influence path.
-- [x] Add smoke coverage and docs closeout for stream influence events.
-
-## Quality gate
-A slice is considered complete when:
-- the docs match the code,
-- the contract tests pass,
-- the bridge still builds,
-- any new action surface is named in the canonical catalogs,
-- and any live-facing claim is backed by actual live validation when applicable.
-
-## Validation note
-- Repo-local proof exists for the current contract/runtime slices.
-- Live proof does not yet exist and must be called out explicitly in status updates and future roadmap edits.
-
-## Known gaps
-- Inventory and world-action handlers here are shared-runtime abstractions, not the shipped game mod.
-- The local buffer is a fallback path, not a full durable queue.
+- repo: `Sims4-Support`
+- support-home boundary: support home lives here; base mod stays separate
+- local build: `dotnet build Api.Sims4.sln`
+- local test: `dotnet test Tests/PolyhydraGames.Sims4.Tests/PolyhydraGames.Sims4.Tests.csproj --no-restore --nologo -v minimal`
