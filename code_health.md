@@ -10,7 +10,7 @@
 
 - `dotnet test Tests/PolyhydraGames.Sims4.Tests/PolyhydraGames.Sims4.Tests.csproj --no-restore --nologo -v minimal`
 - Result: Passed 73 / 73 tests, 0 skipped, 0 failed.
-- Live validation against the deployed support environment has not been done yet.
+- Live validation against the deployed support environment is complete for the 252 lane.
 
 ## Findings
 
@@ -18,7 +18,7 @@
 - The repo is in the middle of a contract/runtime expansion, but the current public docs describe the surface clearly.
 - `docs/roadmap/v1/README.md` already records the completed queue-dispatcher / status-persistence slice, which is the right place to keep any future follow-up work.
 - The current test run passed cleanly, so the new bridge/contract pieces are not showing an obvious regression signal.
-- That is local-only proof; do not treat it as live validation.
+- That is now local plus live proof for the deployed 252 lane; keep future claims aligned with the live surface.
 
 ### Docs / roadmap alignment — medium
 - The README and roadmap are aligned around the contract boundary, bridge runtime, and influence-event work.
@@ -37,7 +37,7 @@
 
 ## Recommended next slice
 
-1. Secure a live validation path against the deployed support environment and capture the result.
+1. Keep the 252 live lane observable and re-run the live validation path after any bridge/runtime edit.
 2. Keep the command/event contract docs synchronized with any further wire-shape changes.
 3. Re-run the targeted test project after the next contract edit.
 

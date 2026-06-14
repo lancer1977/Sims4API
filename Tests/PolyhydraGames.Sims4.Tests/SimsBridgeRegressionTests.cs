@@ -1,6 +1,7 @@
 using System.Text.Json;
 using PolyhydraGames.Sims4.Bridge;
 using PolyhydraGames.Sims4.Core;
+using Microsoft.Extensions.Options;
 using NUnit.Framework;
 
 namespace PolyhydraGames.Sims4.Tests;
@@ -72,6 +73,27 @@ public class SimsBridgeRegressionTests
         Assert.That(doc.RootElement.GetProperty("Target").GetProperty("SimId").GetString(), Is.EqualTo("sim-42"));
         Assert.That(doc.RootElement.GetProperty("Payload").GetProperty("itemId").GetString(), Is.EqualTo("item-1"));
         Assert.That(doc.RootElement.GetProperty("Payload").GetProperty("quantity").GetInt32(), Is.EqualTo(2));
+    }
+
+    [Test]
+    public void SimsBridgeHostState_ReportsReadOnlyStateAndVersionFriendlyShape()
+    {
+        var state = new SimsBridgeHostState();
+        state.MarkStarting();
+        state.MarkConnected();
+        state.MarkEvent(new StreamEvent("streamer-1", SimsEventNames.Capabilities, DateTimeOffset.UtcNow, new { ok = true }, "evt-1"));
+
+        var report = JsonSerializer.Serialize(state.CreateStateReport(Options.Create(new SimsBridgeOptions
+        {
+            HubUrl = "http://127.0.0.1:5230/signalr",
+            WebKey = "sims4-support-252"
+        }).Value));
+
+        using var doc = JsonDocument.Parse(report);
+        Assert.That(doc.RootElement.GetProperty("Surface").GetString(), Is.EqualTo("Sims4.SignalR"));
+        Assert.That(doc.RootElement.GetProperty("LastEventType").GetString(), Is.EqualTo("Capabilities"));
+        Assert.That(doc.RootElement.GetProperty("HubUrl").GetString(), Is.EqualTo("http://127.0.0.1:5230/signalr"));
+        Assert.That(doc.RootElement.TryGetProperty("WebKey", out _), Is.False);
     }
 
     private static string CreateTempPath(string subdir, string fileName)

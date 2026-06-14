@@ -54,3 +54,5 @@ Follow the closest `AGENTS.md` first, then the workspace-root `AGENTS.md` when t
 ## Repo Notes
 
 - Add repo-specific commands, constraints, and validation steps below this line.
+- `Sims4-Support` is the Sims support home; start with `docs/README.md` and keep the base mod out of this boundary.
+- Shared V-layer wording and ladder references should stay aligned with `Api.GameServerInterop`.

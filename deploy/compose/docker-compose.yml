@@ -1,0 +1,16 @@
+services:
+  sims4-support:
+    build:
+      context: ../..
+      dockerfile: deploy/compose/Dockerfile
+    container_name: sims4-support
+    environment:
+      ASPNETCORE_URLS: http://+:5230
+      SIMS4_HubUrl: ${SIMS4_SUPPORT_HUB_URL:-http://127.0.0.1:5230/signalr}
+      SIMS4_WebKey: ${SIMS4_SUPPORT_WEB_KEY:-sims4-support-stream-box}
+      SIMS4_EventBufferPath: /tmp/sims4-event-buffer.jsonl
+      SIMS4_RetryAttempts: "2"
+      SIMS4_RetryDelayMilliseconds: "50"
+    ports:
+      - "5230:5230"
+    restart: unless-stopped

@@ -1,10 +1,14 @@
 # Sims4 Support
 
+Support home for the Sims 4 boundary.
+
+First read: [docs/README.md](./docs/README.md).
+
 Contracts and game-sidecar runtime for the Polyhydra Games Sims 4 support home.
 
 Goal shape: canonical support home for Sims contracts and bridge runtime, while the base mod remains separate from the support boundary. `V0` is the deployable/analyzable floor and `V1` is the canonical support-home and repo-boundary pass.
 
-This repository is the shared boundary for the Sims workflow and the canonical Sims4 support home. It is **not** the base mod itself; instead it defines the wire contracts and the small SignalR game-sidecar that runs resident in the game context and reports state back to the hub.
+This repository is the shared Sims support home. It is **not** the base mod itself; instead it defines the wire contracts and the small SignalR game-sidecar that runs resident in the game context and reports state back to the hub.
 
 For the shared V-layer wording and checklist shape, use the canonical template in `../Api.GameServerInterop/docs/roadmap/v-layer-goals-template.md`.
 
@@ -29,19 +33,29 @@ This repo follows the shared infra ladder defined in `Api.GameServerInterop`.
 
 ## V2 Read-Only Support Proof
 
-- 252 deployment status: not observed on 192.168.0.252 as of 2026-06-13; see [252 Deployment Status](../Api.GameServerInterop/docs/roadmap/252-deployment-status.md)
-- deployment prerequisite: tracked separately as GitHub issue [#10](https://github.com/lancer1977/Sims4API/issues/10)
+- 252 deployment status: observed on 192.168.0.252 as of 2026-06-14; see [252 Deployment Status](../Api.GameServerInterop/docs/roadmap/252-deployment-status.md)
+- deployment prerequisite: complete; the 252 lane is now live and observable
 - goal: prove safe readback, inspection, or telemetry behavior without gameplay mutation
 - ownership: health, version, snapshot, log-tail, and read-only projections stay in the support lane
-- validation status: the repo-local test suite passes, but live validation against the deployed support environment has not been done yet
+- validation status: the repo-local test suite passes and live validation against the deployed support environment is now in place
 - exit criteria: the repo exposes a stable read-only model, unsafe actions are absent or explicitly gated, and tests plus live validation cover the read-only contract shape
 - avoid: mutating game state in the read-only layer or depending on unproven write access
 
 ## Validation
 
 - repo-local tests pass: `dotnet test Tests/PolyhydraGames.Sims4.Tests/PolyhydraGames.Sims4.Tests.csproj --no-restore --nologo -v minimal`
-- live validation: pending against the deployed support environment
+- live validation: `scripts/deploy_252_alienware.sh` verified `/healthz`, `/state`, `/version`, container status, and host logs on `192.168.0.252`
 - docs should distinguish implemented behavior from behavior that has been proven live
+
+## Deployment Targets
+
+- `scripts/deploy_sims4_target.sh` deploys the bridge runtime to a named target
+  and verifies the read-only health surface.
+- `scripts/deploy_stream_box.sh` is the first-step target for `192.168.0.178`.
+- `scripts/deploy_252_alienware.sh` preserves the current `192.168.0.252` lane.
+- `deploy/compose/docker-compose.yml` defines the support-home runtime adjacency
+  for the selected target.
+- `deploy/compose/Dockerfile` publishes the bridge into a container image.
 
 ## Tags
 
@@ -146,6 +160,7 @@ The canonical influence-event contract lives in `docs/contracts/influence-events
 ## Docs map
 
 - [Docs README](./docs/README.md)
+- [Deployment README](./deploy/README.md)
 - [252 operator matrix](../gitops/docs/roadmaps/game-server-252-operator-matrix.md)
 
 ## Notes
