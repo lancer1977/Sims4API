@@ -21,6 +21,7 @@ For the shared V-layer wording and checklist shape, use the canonical template i
 ## V2 Read-Only Support Proof
 
 - 252 deployment status: not observed on 192.168.0.252 as of 2026-06-13; see [252 Deployment Status](../../Api.GameServerInterop/docs/roadmap/252-deployment-status.md)
+- deployment prerequisite: tracked separately as GitHub issue [#10](https://github.com/lancer1977/Sims4API/issues/10)
 - goal: prove safe readback, inspection, or telemetry behavior without gameplay mutation
 - ownership: health, version, snapshot, log-tail, and read-only projections stay in the support lane
 - validation status: the repo-local test suite passes, but live validation against the deployed support environment has not been done yet
