@@ -140,6 +140,7 @@ See `docs/roadmaps/README.md` for the current phased backlog and planning index.
 The v1 backlog lives in `docs/roadmap/v1/README.md`.
 The stream-influence brainstorm and card pack live in `docs/roadmap/v1/stream-influence-events.md`.
 The canonical influence-event contract lives in `docs/contracts/influence-events.md`.
+The AI-facing callback-home / typed-surface goal is tracked in GitHub issue [#11](https://github.com/lancer1977/Sims4API/issues/11).
 
 ## Work tracking
 
@@ -170,4 +171,5 @@ The canonical influence-event contract lives in `docs/contracts/influence-events
 - JSON wire-format details live in `docs/contracts/json-wire-format.md`.
 - Influence request and decision semantics live in `docs/contracts/influence-events.md`; that doc defines the safety surface, approval gating, and cooldown behavior.
 - Command status journal details live in `docs/contracts/dispatch-status.md`.
+- AI consumers should stay on the typed plugin callback-home surface; do not route them through the support-sidecar boundary.
 - Keep any future orchestration/UI work outside this repo unless it is part of the bridge/runtime boundary.

@@ -18,3 +18,4 @@ Policy: this tracker is a lightweight mirror only; Hermes cards and GitHub issue
 - [x] `#4` capability manifest. Source: completed GitHub issue chain.
 - [x] V3 capability/control truth chain. Source: completed GitHub issue chain.
 - [x] `#10` V2 deployment prerequisite. Source: [GitHub issue](https://github.com/lancer1977/Sims4API/issues/10)
+- [ ] `#11` plugin callback-home and surface classification. Hermes Kanban: pending promotion. Source: [GitHub issue](https://github.com/lancer1977/Sims4API/issues/11)
