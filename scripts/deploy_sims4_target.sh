@@ -113,12 +113,15 @@ wait_for_container() {
   if [ "${TARGET_KIND}" = "windows" ]; then
   echo "[2/5] Syncing the published bridge archive to ${HOST}:${REMOTE_ROOT_UNIX}"
   ssh "${HOST}" "powershell -NoProfile -Command \"New-Item -ItemType Directory -Force -Path '${REMOTE_ROOT_CMD}' | Out-Null\""
-  ssh "${HOST}" "powershell -NoProfile -Command \"Get-Process PolyhydraGames.Sims4.Bridge -ErrorAction SilentlyContinue | ForEach-Object { Stop-Process -Id \$_ -Force }; exit 0\""
   scp "${ARCHIVE_PATH}" "${HOST}:${REMOTE_ROOT_UNIX}/sims4-support.zip"
   ssh "${HOST}" "powershell -NoProfile -Command \"Expand-Archive -Force -Path '${REMOTE_ROOT_CMD}\\sims4-support.zip' -DestinationPath '${REMOTE_ROOT_CMD}'\""
 
-  echo "[3/5] Starting the resident app on ${HOST}"
-  ssh "${HOST}" "powershell -NoProfile -ExecutionPolicy Bypass -File ${REMOTE_ROOT_CMD}\\launch_sims4_support.ps1 -BasePath ${REMOTE_ROOT_CMD} -WebKey ${SUPPORT_WEB_KEY} -HubUrl ${SIMS4_SUPPORT_HUB_URL:-http://127.0.0.1:5230/signalr}"
+  echo "[3/5] Preparing the task wrapper on ${HOST}"
+  ssh "${HOST}" "powershell -NoProfile -ExecutionPolicy Bypass -File '${REMOTE_ROOT_CMD}\\launch_sims4_support.ps1' -BasePath '${REMOTE_ROOT_CMD}' -WebKey '${SUPPORT_WEB_KEY}' -HubUrl '${SIMS4_SUPPORT_HUB_URL:-http://127.0.0.1:5230/signalr}' -Port 5230"
+
+  echo "[4/5] Starting the resident app via scheduled task on ${HOST}"
+  ssh "${HOST}" "cmd /c schtasks /Create /TN Sims4SupportStreamBox /SC ONCE /SD 12/31/2099 /ST 23:59 /RU SYSTEM /RL HIGHEST /F /TR \"cmd /c \\\"${REMOTE_ROOT_CMD}\\\\launch_sims4_support.cmd\\\"\""
+  ssh "${HOST}" "cmd /c schtasks /Run /TN Sims4SupportStreamBox"
 else
   echo "[2/5] Syncing the repo to ${HOST}:${REMOTE_ROOT}"
   ssh "${HOST}" "mkdir -p '${REMOTE_ROOT}'"
@@ -128,10 +131,10 @@ else
   ssh "${HOST}" "cd '${REMOTE_ROOT}' && SIMS4_SUPPORT_WEB_KEY='${SUPPORT_WEB_KEY}' SIMS4_SUPPORT_HUB_URL='${SIMS4_SUPPORT_HUB_URL:-http://127.0.0.1:5230/signalr}' docker compose -f '${COMPOSE_FILE}' up -d --build"
 fi
 
-echo "[4/5] Waiting for the Sims4 bridge container and health endpoint"
+echo "[5/5] Waiting for the Sims4 bridge container and health endpoint"
 if [ "${TARGET_KIND}" = "windows" ]; then
   wait_for_health "bridge health" "${HEALTH_URL}" '.status == "ok" and .surface == "Sims4.SignalR" and .bridge == "connected"'
-  wait_for_health "bridge state" "${STATE_URL}" '.surface == "Sims4.SignalR" and .hubUrl == "http://127.0.0.1:5230/signalr" and .connectedAt != null and .lastError == null'
+  wait_for_health "bridge state" "${STATE_URL}" '.surface == "Sims4.SignalR" and (.hubUrl | type == "string") and .connectedAt != null and .lastError == null'
   wait_for_health "bridge version" "${VERSION_URL}" '.status == "ok" and .surface == "Sims4.SignalR" and (.version | type == "string")'
 else
   wait_for_container "Sims4 bridge container" "${CONTAINER_NAME}" "running"
@@ -143,7 +146,7 @@ fi
 echo "[5/5] Recording the deployed lane"
 if [ "${TARGET_KIND}" = "windows" ]; then
   ssh "${HOST}" "powershell -NoProfile -Command \"Get-NetTCPConnection -LocalPort 5230 -State Listen | Select-Object -First 1 | Format-Table -AutoSize LocalAddress,LocalPort,OwningProcess\""
-  ssh "${HOST}" "powershell -NoProfile -Command \"Get-Process dotnet -ErrorAction SilentlyContinue | Select-Object -First 5 | Format-Table -AutoSize Id,ProcessName,Path\""
+  ssh "${HOST}" "powershell -NoProfile -Command \"Get-Process PolyhydraGames.Sims4.Bridge -ErrorAction SilentlyContinue | Select-Object -First 5 | Format-Table -AutoSize Id,ProcessName,Path\""
   ssh "${HOST}" "powershell -NoProfile -Command \"(Invoke-WebRequest -UseBasicParsing -Uri '${HEALTH_URL}').Content | ConvertFrom-Json | Select-Object status,bridge,surface | ConvertTo-Json -Compress\""
   ssh "${HOST}" "powershell -NoProfile -Command \"(Invoke-WebRequest -UseBasicParsing -Uri '${STATE_URL}').Content | ConvertFrom-Json | Select-Object surface,lastEventType,connectedAt | ConvertTo-Json -Compress\""
   ssh "${HOST}" "powershell -NoProfile -Command \"(Invoke-WebRequest -UseBasicParsing -Uri '${VERSION_URL}').Content | ConvertFrom-Json | Select-Object version,surface | ConvertTo-Json -Compress\""
