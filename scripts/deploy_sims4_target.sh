@@ -12,14 +12,15 @@ CONTAINER_NAME="${SIMS4_SUPPORT_CONTAINER:-sims4-support}"
 case "${TARGET}" in
   stream-box)
     TARGET_LABEL="stream-box"
-    TARGET_KIND="windows"
-    HOST="${SIMS4_SUPPORT_HOST:-192.168.0.178}"
-    REMOTE_ROOT_UNIX="${SIMS4_SUPPORT_ROOT:-C:/Users/lancer1977/game_servers/sims4-support}"
-    REMOTE_ROOT_CMD="${SIMS4_SUPPORT_ROOT_CMD:-C:\\Users\\lancer1977\\game_servers\\sims4-support}"
-    SUPPORT_WEB_KEY="${SIMS4_SUPPORT_WEB_KEY:-sims4-support-stream-box}"
-    REMOTE_LAUNCHER="${REPO_ROOT}/deploy/windows/launch_sims4_support.ps1"
-    PUBLISH_DIR=$(mktemp -d "${TMPDIR:-/tmp}/sims4-stream-box.XXXXXX")
-    ;;
+  TARGET_KIND="windows"
+  HOST="${SIMS4_SUPPORT_HOST:-192.168.0.178}"
+  REMOTE_ROOT_UNIX="${SIMS4_SUPPORT_ROOT:-C:/Users/lancer1977/game_servers/sims4-support}"
+  REMOTE_ROOT_CMD="${SIMS4_SUPPORT_ROOT_CMD:-C:\\Users\\lancer1977\\game_servers\\sims4-support}"
+  SUPPORT_WEB_KEY="${SIMS4_SUPPORT_WEB_KEY:-sims4-support-stream-box}"
+  REMOTE_LAUNCHER="${REPO_ROOT}/deploy/windows/launch_sims4_support.ps1"
+  PUBLISH_DIR=$(mktemp -d "${TMPDIR:-/tmp}/sims4-stream-box.XXXXXX")
+  ARCHIVE_PATH="${TMPDIR:-/tmp}/sims4-stream-box-$$.zip"
+  ;;
   alienware-252|252)
     TARGET_LABEL="alienware-252"
     TARGET_KIND="linux-docker"
@@ -96,20 +97,25 @@ wait_for_container() {
   if [ "${TARGET_KIND}" = "windows" ]; then
     dotnet publish "${REPO_ROOT}/Sims4.SignalR/PolyhydraGames.Sims4.Bridge.csproj" \
       --configuration Release \
+      --runtime win-x64 \
+      --self-contained true \
       --output "${PUBLISH_DIR}" \
     /p:UseAppHost=true >/dev/null
+    cp "${REMOTE_LAUNCHER}" "${PUBLISH_DIR}/launch_sims4_support.ps1"
+    rm -f "${ARCHIVE_PATH}"
+    (cd "${PUBLISH_DIR}" && zip -qr "${ARCHIVE_PATH}" .)
   else
     SIMS4_SUPPORT_WEB_KEY="${SUPPORT_WEB_KEY}" \
       SIMS4_SUPPORT_HUB_URL="${SIMS4_SUPPORT_HUB_URL:-http://127.0.0.1:5230/signalr}" \
       docker compose -f "${REPO_ROOT}/${COMPOSE_FILE}" config >/dev/null
   fi
 
-if [ "${TARGET_KIND}" = "windows" ]; then
-  echo "[2/5] Syncing the published bridge to ${HOST}:${REMOTE_ROOT_UNIX}"
+  if [ "${TARGET_KIND}" = "windows" ]; then
+  echo "[2/5] Syncing the published bridge archive to ${HOST}:${REMOTE_ROOT_UNIX}"
   ssh "${HOST}" "powershell -NoProfile -Command \"New-Item -ItemType Directory -Force -Path '${REMOTE_ROOT_CMD}' | Out-Null\""
-  ssh "${HOST}" "powershell -NoProfile -Command \"Get-Process PolyhydraGames.Sims4.Bridge -ErrorAction SilentlyContinue | Stop-Process -Force\""
-  scp -r "${PUBLISH_DIR}/." "${HOST}:${REMOTE_ROOT_UNIX}/"
-  scp "${REMOTE_LAUNCHER}" "${HOST}:${REMOTE_ROOT_UNIX}/launch_sims4_support.ps1"
+  ssh "${HOST}" "powershell -NoProfile -Command \"Get-Process PolyhydraGames.Sims4.Bridge -ErrorAction SilentlyContinue | ForEach-Object { Stop-Process -Id \$_ -Force }; exit 0\""
+  scp "${ARCHIVE_PATH}" "${HOST}:${REMOTE_ROOT_UNIX}/sims4-support.zip"
+  ssh "${HOST}" "powershell -NoProfile -Command \"Expand-Archive -Force -Path '${REMOTE_ROOT_CMD}\\sims4-support.zip' -DestinationPath '${REMOTE_ROOT_CMD}'\""
 
   echo "[3/5] Starting the resident app on ${HOST}"
   ssh "${HOST}" "powershell -NoProfile -ExecutionPolicy Bypass -File ${REMOTE_ROOT_CMD}\\launch_sims4_support.ps1 -BasePath ${REMOTE_ROOT_CMD} -WebKey ${SUPPORT_WEB_KEY} -HubUrl ${SIMS4_SUPPORT_HUB_URL:-http://127.0.0.1:5230/signalr}"
