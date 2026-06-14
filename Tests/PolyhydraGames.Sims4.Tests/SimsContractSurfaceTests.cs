@@ -37,8 +37,11 @@ public class SimsContractSurfaceTests
     }
 
     [Test]
-    public void ModCapabilities_CarriesTheBaseSurfaceFlags()
+    public void ModCapabilities_PublishesCanonicalCatalogsInDeterministicOrder()
     {
+        var expectedActions = SimsActionNames.All.OrderBy(action => action, StringComparer.Ordinal).ToArray();
+        var expectedEvents = SimsEventNames.All.OrderBy(evt => evt, StringComparer.Ordinal).ToArray();
+
         var capabilities = new SimsModCapabilities(
             ModVersion: "1.2.3",
             ApiVersion: "v1",
@@ -49,7 +52,16 @@ public class SimsContractSurfaceTests
 
         Assert.That(capabilities.SupportsInventoryExposure, Is.True);
         Assert.That(capabilities.SupportsStocktake, Is.True);
-        Assert.That(capabilities.SupportedActions, Does.Contain(SimsActionNames.TakeItem));
+        Assert.That(capabilities.SupportedActions, Is.EqualTo(SimsActionNames.All));
+        Assert.That(capabilities.SupportedEvents, Is.EqualTo(SimsEventNames.All));
+
+        var snapshot = SimsCapabilitySnapshotFactory.Create(
+            capturedAt: new DateTimeOffset(2026, 5, 31, 12, 0, 0, TimeSpan.Zero),
+            modVersion: "1.2.3",
+            apiVersion: "v1");
+
+        Assert.That(snapshot.Capabilities.SupportedActions, Is.EqualTo(expectedActions));
+        Assert.That(snapshot.Capabilities.SupportedEvents, Is.EqualTo(expectedEvents));
     }
 
     [Test]

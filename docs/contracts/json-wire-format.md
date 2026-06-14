@@ -220,6 +220,8 @@ Inventory state captured for stocktake or exposure reporting.
 ## `SimsModCapabilities`
 
 Authoritative V3 capability handshake published by the mod on startup.
+`SupportedActions` is the ordered `SimsActionNames.All` catalog, and `SupportedEvents` is the ordered `SimsEventNames.All` catalog.
+These arrays are the source of truth for the advertised capability surface.
 
 || Property | Type | Required | Notes |
 || --- | --- | --- | --- |

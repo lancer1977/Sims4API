@@ -69,6 +69,7 @@ This repo follows the shared infra ladder defined in `Api.GameServerInterop`.
 
 ## Canonical action surface
 
+The V3 capability snapshot publishes the ordered `SimsActionNames.All` catalog as the support surface.
 The current action catalog is intentionally small and explicit:
 
 - `add_funds`
@@ -82,8 +83,11 @@ The current action catalog is intentionally small and explicit:
 - `trigger_influence`
 
 The inventory-oriented actions and direct interaction/object actions are the current foundation for the base mod exposure work, and `trigger_influence` is the stream-facing entry point for audience-driven incidents.
+The shared-contract action names `add_funds`, `add_buff`, and `send_notification` are part of the advertised catalog, but this slice does not add new gameplay semantics for them.
 
 ## Canonical event surface
+
+The V3 capability snapshot publishes the ordered `SimsEventNames.All` catalog as the event surface.
 
 - `Heartbeat`
 - `Capabilities`
