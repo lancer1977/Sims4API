@@ -16,7 +16,4 @@ Policy: this tracker is a lightweight mirror only; Hermes cards and GitHub issue
 - [x] guest summon. Source: completed GitHub issue chain.
 - [x] influence smoke. Source: completed GitHub issue chain.
 - [x] `#4` capability manifest. Source: completed GitHub issue chain.
-- [ ] `#7` V3 docs. Source: [GitHub issue](https://github.com/lancer1977/Sims4API/issues/7)
-- [ ] `#8` V3 tests. Source: [GitHub issue](https://github.com/lancer1977/Sims4API/issues/8)
-- [ ] `#5` safety metadata. Source: [GitHub issue](https://github.com/lancer1977/Sims4API/issues/5)
-- [ ] `#9` final validation. Source: [GitHub issue](https://github.com/lancer1977/Sims4API/issues/9)
+- [x] V3 capability/control truth chain. Source: completed GitHub issue chain.

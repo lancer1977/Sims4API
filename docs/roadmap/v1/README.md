@@ -8,8 +8,7 @@ Policy: this file is a checklist mirror only; GitHub issues hold scope, implemen
 - [x] `Phase 2` game-side base mod exposure. Source: completed GitHub issue chain.
 - [x] `Phase 3` smoke and test system. Source: completed GitHub issue chain.
 - [x] `Phase 4` stream influence events. Source: completed GitHub issue chain.
-- [x] `Phase 5a` V3 capability manifest and canonical action catalog. Source: completed GitHub issue chain.
-- [ ] `Phase 5` V3 capability and control truth. Docs prerequisite: `SimsModCapabilities` / `SimsCapabilitySnapshot` are the authoritative capability surface, and `docs/contracts/influence-events.md` defines the safety surface, approval, and cooldown semantics. Source: [#7](https://github.com/lancer1977/Sims4API/issues/7), [#8](https://github.com/lancer1977/Sims4API/issues/8), [#5](https://github.com/lancer1977/Sims4API/issues/5), [#9](https://github.com/lancer1977/Sims4API/issues/9)
+- [x] `Phase 5` V3 capability and control truth. Source: completed GitHub issue chain.
 
 ## Minimal Metadata
 
