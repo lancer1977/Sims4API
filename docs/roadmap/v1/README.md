@@ -15,7 +15,7 @@ This roadmap stays on the Sims support-home boundary. Shared contract wording fo
 
 ## AI Coverage Goals
 
-- `#11` keeps UI, AI, and MCP consumers on a typed callback-home surface instead of an ad hoc command path. Source: [GitHub issue](https://github.com/lancer1977/Sims4API/issues/11)
+- Keep UI, AI, and MCP consumers on a typed callback-home surface instead of an ad hoc command path.
 - The support sidecar stays support-only; AI-facing control routing belongs in the plugin/callback-home lane, not here.
 - Treat this as surface coverage and contract routing work, not gameplay authority expansion.
 

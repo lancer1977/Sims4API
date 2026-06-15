@@ -121,7 +121,7 @@ Possible later extensions, if the core three land well:
 **Files:**
 - Add or modify tests under `Tests/PolyhydraGames.Sims4.Tests/`
 - Modify: `docs/roadmap/v1/README.md`
-- Modify: `docs/roadmaps/planning/Sims4-Support-KANBAN.md`
+- Modify: `docs/roadmaps/README.md`
 - Modify: `README.md`
 
 **Acceptance criteria:**

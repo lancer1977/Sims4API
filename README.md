@@ -136,15 +136,15 @@ Sample local config and env-var setup lives in `docs/operations/local-config.md`
 
 ## Roadmap
 
-See `docs/roadmaps/README.md` for the current phased backlog and planning index.
+See `docs/roadmaps/README.md` for the current phased backlog and roadmap index.
 The v1 backlog lives in `docs/roadmap/v1/README.md`.
 The stream-influence brainstorm and card pack live in `docs/roadmap/v1/stream-influence-events.md`.
 The canonical influence-event contract lives in `docs/contracts/influence-events.md`.
-The AI-facing callback-home / typed-surface goal is tracked in GitHub issue [#11](https://github.com/lancer1977/Sims4API/issues/11).
+The AI-facing callback-home / typed-surface work is described in the roadmap docs and stays on the plugin/callback-home side.
 
 ## Work tracking
 
-- [Live Kanban tracker](docs/roadmaps/planning/Sims4-Support-KANBAN.md) — mirrors the current Sims integration cards and their parked status.
+- [Roadmap index](docs/roadmaps/README.md) — the current roadmap and support-home notes live here.
 
 ## V1 baseline
 
