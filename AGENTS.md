@@ -16,12 +16,12 @@ Follow the closest `AGENTS.md` first, then the workspace-root `AGENTS.md` when t
 - If this repo participates in portfolio monitoring, treat the Dev Forge Work Matrix as the operator-facing control surface; keep repo-local current-work notes short and avoid duplicating portfolio state in multiple places.
 
 
-## Hermes Kanban First
+## Support Sidecar First
 
-- For any new slice, backlog item, generated card pack, or DreadBreadcrumb follow-up, create or identify the Hermes Kanban card first.
-- Repo-local docs (`00_agile/`, `docs/roadmaps/`, `docs/features/`, `CURRENT-WORK.md`) are tracking mirrors: they should link back to the Hermes `t_*` card and may keep local doc-card IDs for grouping, but they are not the execution source of truth.
-- When planning broad work, create a Hermes umbrella/planner card before materializing local generated cards. Promote only the next safe slice(s) to ready; leave broad backlogs in triage/blocked until scoped.
-- Every local card row or markdown backlog entry should include `Hermes Kanban: t_*` once the live card exists, or `Hermes Kanban: pending promotion` if it is only a parked local breadcrumb.
+- Treat GitHub issues as the tracking source of truth.
+- Keep the running game focused on local state exposure through files, IPC, or similarly narrow host-visible signals.
+- Put external request/response handling, admin views, and GM-style control into the sidecar layer, not into the game process itself.
+- Do not require a Kanban board to start or track the active slice.
 
 ## Validation
 
@@ -56,3 +56,4 @@ Follow the closest `AGENTS.md` first, then the workspace-root `AGENTS.md` when t
 - Add repo-specific commands, constraints, and validation steps below this line.
 - `Sims4-Support` is the Sims support home; start with `docs/README.md` and keep the base mod out of this boundary.
 - Shared V-layer wording and ladder references should stay aligned with `Api.GameServerInterop`.
+- External requests belong in the sidecar/admin layer; keep the game runtime focused on emitting state through file or IPC boundaries.

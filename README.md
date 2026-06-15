@@ -140,7 +140,7 @@ See `docs/roadmaps/README.md` for the current phased backlog and roadmap index.
 The v1 backlog lives in `docs/roadmap/v1/README.md`.
 The stream-influence brainstorm and card pack live in `docs/roadmap/v1/stream-influence-events.md`.
 The canonical influence-event contract lives in `docs/contracts/influence-events.md`.
-The AI-facing callback-home / typed-surface work is described in the roadmap docs and stays on the plugin/callback-home side.
+The AI-facing callback-home / typed-surface work is described in the roadmap docs and stays on the plugin/callback-home side; it was tracked in closed GitHub issue [#11](https://github.com/lancer1977/Sims4API/issues/11).
 
 ## Work tracking
 
