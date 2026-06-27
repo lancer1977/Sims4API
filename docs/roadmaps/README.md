@@ -4,8 +4,23 @@ Canonical roadmap entrypoint for the Sims 4 support home.
 
 ## Current Roadmap
 
+- [Sims 4 V2-V4 Bridge Policy](../features/v2-v4-bridge-policy.md)
 - [v1](../roadmap/v1/README.md)
 - [Stream influence events](../roadmap/v1/stream-influence-events.md)
+
+## V2-V4 Policy
+
+- GitHub issue [#13](https://github.com/lancer1977/Sims4API/issues/13)
+  normalized this repo as a V2-V4 bridge/runtime surface.
+- V2 is read-only bridge evidence: local tests, `/healthz`, `/state`,
+  `/version`, and deploy smoke when live validation is in scope.
+- V3 is typed capability/control truth through `SimsModCapabilities`,
+  `SimsCapabilitySnapshot`, action/event catalogs, influence gates, and command
+  dispatch records.
+- V4 is the redacted public/operator projection layer described in the bridge
+  policy.
+- V5 gameplay/world mutation stays blocked until a separate approval-gated
+  architecture defines the base-mod/runtime boundary and validation smoke.
 
 ## AI Coverage
 

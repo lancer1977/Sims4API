@@ -11,6 +11,8 @@ Goal shape: canonical support home for Sims contracts and bridge runtime, while 
 This repository is the shared Sims support home. It is **not** the base mod itself; instead it defines the wire contracts and the small SignalR game-sidecar that runs resident in the game context and reports state back to the hub.
 
 For the shared V-layer wording and checklist shape, use the canonical template in `../Api.GameServerInterop/docs/roadmap/v-layer-goals-template.md`.
+The repo-specific V2-V4 bridge policy lives in
+[Sims 4 V2-V4 Bridge Policy](./docs/features/v2-v4-bridge-policy.md).
 
 ## Per-Repo Fill-In
 
@@ -29,6 +31,15 @@ This repo follows the shared infra ladder defined in `Api.GameServerInterop`.
 - The existing Sims contract and bridge work stays in this repo; the shared telemetry, health, capability, and adapter seam stays in `Api.GameServerInterop`.
 - The next layers still follow the shared ladder: `V1` canonical support home, `V2` read-only support proof, `V3` capability/control truth, `V4` public/operator projection, and `V5` approval-gated gameplay proof.
 - `V3` is documented by the authoritative capability surface in `SimsModCapabilities` and `SimsCapabilitySnapshot`, plus the influence safety surface in `docs/contracts/influence-events.md`.
+- `V4` is the public/operator projection layer described in
+  [Sims 4 V2-V4 Bridge Policy](./docs/features/v2-v4-bridge-policy.md): it may
+  expose redacted bridge health, capability, command-status, inventory-summary,
+  and influence-decision state, but not secrets, approval tokens, raw payloads,
+  private identifiers, or mutation handles.
+- `V5` gameplay/world mutation remains blocked until a separate
+  approval-gated architecture names the base-mod/runtime boundary, dry-run
+  behavior, audit/result shape, rollback or stop conditions, and validation
+  smoke.
 
 
 ## V2 Read-Only Support Proof
@@ -161,6 +172,7 @@ The AI-facing callback-home / typed-surface work is described in the roadmap doc
 ## Docs map
 
 - [Docs README](./docs/README.md)
+- [Sims 4 V2-V4 Bridge Policy](./docs/features/v2-v4-bridge-policy.md)
 - [Deployment README](./deploy/README.md)
 - [252 operator matrix](../gitops/docs/roadmaps/game-server-252-operator-matrix.md)
 

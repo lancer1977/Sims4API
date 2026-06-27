@@ -7,6 +7,9 @@ This folder is the navigation layer for the Sims contracts, resident game-sideca
 The shared infra baseline for this repo is `V0` from `Api.GameServerInterop`: a bootable resident game-sidecar, a readback-capable helper path, an explicit deployment lane, and smoke checks that prove the support boundary starts cleanly locally. `V1` is the canonical support-home boundary pass.
 
 For the shared V-layer wording and checklist shape, use the canonical template in `../../Api.GameServerInterop/docs/roadmap/v-layer-goals-template.md`.
+The repo-specific bridge policy for V2 readback, V3 capability truth, V4
+projection, and V5 blocking lives in
+[Sims 4 V2-V4 Bridge Policy](./features/v2-v4-bridge-policy.md).
 
 Start here for routing, then use the repository README for the concise boundary summary.
 
@@ -30,6 +33,22 @@ Start here for routing, then use the repository README for the concise boundary 
 - exit criteria: the repo exposes a stable read-only model, unsafe actions are absent or explicitly gated, and tests plus live validation cover the read-only contract shape
 - avoid: mutating game state in the read-only layer or depending on unproven write access
 
+## V3/V4 Bridge Policy
+
+- V3 capability truth is the typed surface in `SimsModCapabilities`,
+  `SimsCapabilitySnapshot`, `SimsActionNames.All`, `SimsEventNames.All`, and
+  the influence gate contracts.
+- V4 public/operator projection may expose redacted bridge health, version,
+  capability metadata, inventory summaries, command dispatch status, and
+  influence decisions.
+- Projection payloads must omit secrets, web keys, approval tokens, raw command
+  payloads, private identifiers, host-only file paths, and mutation handles.
+- V5 gameplay/world mutation remains blocked unless a separate architecture
+  names the base-mod/runtime boundary, approval policy, dry-run behavior,
+  audit/result model, rollback or stop conditions, and validation smoke.
+
+See [Sims 4 V2-V4 Bridge Policy](./features/v2-v4-bridge-policy.md).
+
 ## Validation
 
 - repo-local tests pass: `dotnet test Tests/PolyhydraGames.Sims4.Tests/PolyhydraGames.Sims4.Tests.csproj --no-restore --nologo -v minimal`
@@ -50,6 +69,7 @@ Start here for routing, then use the repository README for the concise boundary 
 ## Contents
 
 - [Repository README](../README.md)
+- [Sims 4 V2-V4 Bridge Policy](features/v2-v4-bridge-policy.md)
 - [Deployment README](../deploy/README.md)
 - [Roadmap v1](roadmap/v1/README.md)
 - [252 operator matrix](../../gitops/docs/roadmaps/game-server-252-operator-matrix.md)
