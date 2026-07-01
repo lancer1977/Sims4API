@@ -70,6 +70,7 @@ See [Sims 4 V2-V4 Bridge Policy](./features/v2-v4-bridge-policy.md).
 
 - [Repository README](../README.md)
 - [Sims 4 V2-V4 Bridge Policy](features/v2-v4-bridge-policy.md)
+- [Version coverage map](features/version-coverage-map.md)
 - [Deployment README](../deploy/README.md)
 - [Roadmap v1](roadmap/v1/README.md)
 - [252 operator matrix](../../gitops/docs/roadmaps/game-server-252-operator-matrix.md)

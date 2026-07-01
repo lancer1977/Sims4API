@@ -173,6 +173,7 @@ The AI-facing callback-home / typed-surface work is described in the roadmap doc
 
 - [Docs README](./docs/README.md)
 - [Sims 4 V2-V4 Bridge Policy](./docs/features/v2-v4-bridge-policy.md)
+- [Version coverage map](./docs/features/version-coverage-map.md)
 - [Deployment README](./deploy/README.md)
 - [252 operator matrix](../gitops/docs/roadmaps/game-server-252-operator-matrix.md)
 

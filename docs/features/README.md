@@ -9,6 +9,7 @@ guidance that define the support boundary.
 
 - [Repository README](../../README.md)
 - [Docs README](../README.md)
+- [Version coverage map](version-coverage-map.md)
 
 ## Durable Features
 

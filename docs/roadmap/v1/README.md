@@ -1,6 +1,9 @@
 # Sims4 Support Roadmap (v1)
 
-Policy: this file is a checklist mirror only; GitHub issues hold scope, implementation detail, and closure evidence.
+This local planning file has been migrated. GitHub Issues are the canonical tracker.
+
+Canonical GitHub issue: https://github.com/lancer1977/Sims4API/issues/14
+Original source kind: roadmap
 
 This roadmap stays on the Sims support-home boundary. Shared contract wording follows `Api.GameServerInterop`, and the base mod remains outside this repo.
 

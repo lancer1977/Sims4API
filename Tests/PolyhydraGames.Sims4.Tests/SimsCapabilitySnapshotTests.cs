@@ -1,4 +1,5 @@
 using System.Text.Json;
+using System.Runtime.CompilerServices;
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Options;
 using PolyhydraGames.Sims4.Bridge;
@@ -8,6 +9,18 @@ namespace PolyhydraGames.Sims4.Tests;
 
 public sealed class SimsCapabilitySnapshotTests
 {
+    [Test]
+    public void Version_coverage_map_tags_established_bridge_and_capability_layers()
+    {
+        var repoRoot = FindRepoRoot();
+        var coverageMap = File.ReadAllText(Path.Combine(repoRoot, "docs", "features", "version-coverage-map.md"));
+
+        Assert.That(coverageMap, Does.Contain("established_versions: [V0, V1, V2, V3]"));
+        Assert.That(coverageMap, Does.Contain("planned_versions: [V4]"));
+        Assert.That(coverageMap, Does.Contain("modeled_versions: [V5]"));
+        Assert.That(coverageMap, Does.Contain("blocked_versions: [V5]"));
+    }
+
     [Test]
     public void SnapshotFactory_BuildsADeterministicPhaseTwoSurface()
     {
@@ -97,4 +110,22 @@ public sealed class SimsCapabilitySnapshotTests
     }
 
     private sealed record FakeInvocation(string Method, object?[] Arguments);
+
+    private static string FindRepoRoot([CallerFilePath] string sourceFilePath = "")
+    {
+        var directory = new DirectoryInfo(Path.GetDirectoryName(sourceFilePath)!);
+
+        while (directory is not null)
+        {
+            if (File.Exists(Path.Combine(directory.FullName, "Api.Sims4.sln")) &&
+                Directory.Exists(Path.Combine(directory.FullName, "Sims4.SignalR")))
+            {
+                return directory.FullName;
+            }
+
+            directory = directory.Parent;
+        }
+
+        throw new DirectoryNotFoundException("Could not locate the repository root.");
+    }
 }

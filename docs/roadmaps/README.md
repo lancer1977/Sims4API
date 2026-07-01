@@ -1,6 +1,9 @@
 # Sims4 Support Roadmaps
 
-Canonical roadmap entrypoint for the Sims 4 support home.
+This local planning file has been migrated. GitHub Issues are the canonical tracker.
+
+Canonical GitHub issue: https://github.com/lancer1977/Sims4API/issues/16
+Original source kind: roadmap
 
 ## Current Roadmap
 
